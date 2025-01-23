@@ -1,6 +1,6 @@
-package com.spring.security.repository;
+package me.spring.security.repository;
 
-import com.spring.security.model.User;
+import me.spring.security.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

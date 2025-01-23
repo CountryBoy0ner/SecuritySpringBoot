@@ -1,17 +1,15 @@
-package com.spring.security.exceptions;
+package me.spring.security.exceptions;
 
-import com.spring.security.exceptions.customException.PasswordsDoNotMatchException;
-import com.spring.security.exceptions.customException.UserAlreadyExistsException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
+import me.spring.security.exceptions.customException.PasswordsDoNotMatchException;
+import me.spring.security.exceptions.customException.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @RestControllerAdvice
@@ -35,6 +33,7 @@ public class GlobalExceptionHandler {
     public void signatureException(ExpiredJwtException ex) {
         log.error("неправильная подпись токена: {}", ex.getMessage(), ex);
     }
+
     @ExceptionHandler(PasswordsDoNotMatchException.class)
     public ResponseEntity<?> passwordsDoNotMatchException(PasswordsDoNotMatchException ex) {
         log.error("passwords do not match: {}", ex.getMessage(), ex);
@@ -44,6 +43,7 @@ public class GlobalExceptionHandler {
                 "Пароли не совпадают");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<?> userAlreadyExistsException(UserAlreadyExistsException ex) {
         log.error("User already exists: {}", ex.getMessage(), ex);
@@ -52,6 +52,7 @@ public class GlobalExceptionHandler {
                 "Пользователь с таким именем уже существует");
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> globalExceptionHandler(Exception ex) {
         log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
@@ -60,6 +61,7 @@ public class GlobalExceptionHandler {
                 "Внутренняя ошибка сервера");
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 
 }
 

@@ -1,4 +1,4 @@
-package com.spring.security.exceptions.customException;
+package me.spring.security.exceptions.customException;
 
 public class PasswordsDoNotMatchException extends RuntimeException {
     public PasswordsDoNotMatchException(String message) {

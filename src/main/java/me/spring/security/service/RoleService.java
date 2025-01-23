@@ -1,7 +1,7 @@
-package com.spring.security.service;
+package me.spring.security.service;
 
-import com.spring.security.model.Role;
-import com.spring.security.repository.RoleRepository;
+import me.spring.security.model.Role;
+import me.spring.security.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

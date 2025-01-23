@@ -1,11 +1,10 @@
-package com.spring.security.service;
+package me.spring.security.service;
 
-import com.spring.security.dto.RegistrationUserDto;
-import com.spring.security.model.User;
-import com.spring.security.repository.UserRepository;
+import me.spring.security.dto.RegistrationUserDto;
+import me.spring.security.model.User;
+import me.spring.security.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,21 +1,18 @@
-package com.spring.security.service;
+package me.spring.security.service;
 
-import com.spring.security.dto.JwtRequest;
-import com.spring.security.dto.JwtResponse;
-import com.spring.security.dto.RegistrationUserDto;
-import com.spring.security.dto.UserDto;
-import com.spring.security.exceptions.AppError;
-import com.spring.security.exceptions.customException.PasswordsDoNotMatchException;
-import com.spring.security.exceptions.customException.UserAlreadyExistsException;
-import com.spring.security.model.User;
-import com.spring.security.utils.JwtTokenUtils;
+import me.spring.security.dto.JwtRequest;
+import me.spring.security.dto.JwtResponse;
+import me.spring.security.dto.RegistrationUserDto;
+import me.spring.security.dto.UserDto;
+import me.spring.security.exceptions.customException.PasswordsDoNotMatchException;
+import me.spring.security.exceptions.customException.UserAlreadyExistsException;
+import me.spring.security.model.User;
+import me.spring.security.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -28,7 +25,7 @@ public class AuthService {
 
     public JwtResponse createAuthToken(@RequestBody JwtRequest authRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
+        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername()); // TODO add exception
         String token = jwtTokenUtils.generateToken(userDetails);
         return new JwtResponse(token);
     }
@@ -37,7 +34,7 @@ public class AuthService {
         if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
             throw new PasswordsDoNotMatchException("Пароли не совпадают");
         }
-        if (userService.findByUsername(registrationUserDto.getUserName()).isPresent()) { //todo sql запрос что бы не вытаскивать user`а
+        if (userService.findByUsername(registrationUserDto.getUserName()).isPresent()) {
             throw new UserAlreadyExistsException("Пользователь с таким именем уже существуе");
         }
         User user = userService.createNewUser(registrationUserDto);

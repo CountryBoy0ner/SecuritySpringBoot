@@ -1,4 +1,4 @@
-package com.spring.security.exceptions;
+package me.spring.security.exceptions;
 
 import lombok.Data;
 import org.springframework.http.HttpStatusCode;

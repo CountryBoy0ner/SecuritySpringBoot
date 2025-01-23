@@ -1,4 +1,4 @@
-package com.spring.security.dto;
+package me.spring.security.dto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

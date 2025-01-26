@@ -22,9 +22,11 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             const data = await response.json();
             const token = data.token;
                 console.log(token);
-            sessionStorage.setItem('Authorization', token);
-            localStorage.setItem('Authorization', token);
 
+
+            sessionStorage.setItem('Authorization', token);
+            //localStorage.setItem('Authorization', token);
+            //document.cookie = `Authorization=${token}; path=/; Secure; HttpOnly`;
 
             responseDisplay.style.color = 'green';
             responseDisplay.textContent = 'Вход выполнен успешно!';
@@ -33,7 +35,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             responseDisplay.style.color = 'red';
             responseDisplay.textContent = error.message;
         }
-        window.location.href = '/secured';
+        //window.location.href = '/secured';
 
     } catch (error) {
         console.error('Ошибка:', error);

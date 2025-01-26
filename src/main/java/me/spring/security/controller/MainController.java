@@ -6,29 +6,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
-
 @Controller
 @RequiredArgsConstructor//TODO
 public class MainController {
     @GetMapping("/unsecured")
     public String unsecuredPage() {
-        return "unsecuredPage";
+        return "unsecured";
     }
 
+
+    @GetMapping("/sec")
+    public String home() {
+        return "sec";
+    }
+    @GetMapping("/loader")
+    public String loaderPage() {
+        return "loader";
+    }
+
+
     @GetMapping("/secured")
-    public String securedPage(HttpServletRequest request) {
-//         Получаем заголовок Authorization
-        String authorizationHeader = request.getHeader("Authorization");
-
-//         Логируем значение заголовка
-        System.out.println("Authorization Header: " + authorizationHeader);
-
-         //Вывод всех заголовков запроса
-        request.getHeaderNames().asIterator().forEachRemaining(headerName -> {
-            System.out.println(headerName + ": " + request.getHeader(headerName));
-        });
-
+    public String securedPage() {
         return "secured";
     }
 
@@ -64,8 +62,5 @@ public class MainController {
         return "index";
     }
 
-//    @GetMapping("/")
-//    public String home() {
-//        return "index";
-//    }
+
 }

@@ -4,18 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Логин</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        a button {
+            margin-top: 10px;
+            background-color: #6c757d;
+        }
+
+        a button:hover {
+            background-color: #5a6268;
+        }
+
+        #responseDisplay {
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .links {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .links a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <h1>Логин</h1>
 <form id="loginForm">
     <label for="username">Имя пользователя:</label>
     <input type="text" id="username" name="username" required>
-    <br>
     <label for="password">Пароль:</label>
     <input type="password" id="password" name="password" required>
-    <br>
     <button type="submit">Войти</button>
 </form>
+
+<div class="links">
+    <a href="/">
+        <button>На главную страницу</button>
+    </a>
+
+</div>
 
 <div id="responseDisplay"></div>
 

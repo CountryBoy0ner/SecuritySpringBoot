@@ -3,17 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добро пожаловать!</title>
+    <title>Запрос защищённой страницы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        div {
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 8px; /* Менее скруглённые углы */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        a button {
+            text-decoration: none;
+        }
+
+        div > button:not(:last-child) {
+            margin-right: 10px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-<h1>Добро пожаловать на защищённую страницу</h1>
+<h1>Добро пожаловать!</h1>
+<div>
+    <button id="securedButton">Перейти на защищённую страницу</button>
+</div>
+<div>
+    <a href="/login">
+        <button>Авторизация</button>
+    </a>
+    <a href="/registration">
+        <button>Регистрация</button>
+    </a>
+    <a href="/unsecured">
+        <button>Unsecured</button>
+    </a>
+</div>
+
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const token = localStorage.getItem('authToken');
-        // if (!token) {
-        //     alert('Вы не авторизованы!');
-        //     window.location.href = '/login';
-        // }
+    document.getElementById('securedButton').addEventListener('click', () => {
+        const token = sessionStorage.getItem('Authorization'); // Или localStorage
+
+        if (!token) {
+            alert('Токен отсутствует. Пожалуйста, войдите.');
+            window.location.href = '/login';
+            return;
+        }
+
+        // Создаём запрос вручную
+        fetch('/secured', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Загружаем HTML-ответ напрямую
+                    return response.text();
+                } else {
+                    throw new Error('Доступ запрещён');
+                }
+            })
+            .then(html => {
+                // Вставляем HTML в текущий документ
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Не удалось загрузить страницу.');
+                window.location.href = '/login';
+            });
     });
 </script>
 </body>

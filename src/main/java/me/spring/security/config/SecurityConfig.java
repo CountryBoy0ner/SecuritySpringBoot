@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .cors().and() // Включаем CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/favicon.ico").permitAll()  // Игнорируем запросы на favicon.ico
-                        .requestMatchers( "/info", "/index", "/secured").authenticated()
+                        .requestMatchers( "/info", "/index", "/secured","/sec").authenticated()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
@@ -58,7 +58,6 @@ public class SecurityConfig {
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
